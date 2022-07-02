@@ -1,38 +1,34 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common'
-import { receiver } from './IReceiver'
+import { emailAddressesService } from './emailAddresses.service'
+import { Receiver } from './receiver.model'
 @Controller('emailAddresses')
 export class EmailAddressesController {
-  constructor() {}
-
-  receivers = [
-    { id: 1, email: 'Poc@gmail.com', name: 'paula' },
-    { id: 2, email: 'jorge@gmail.com', name: 'mario' }
-  ]
+  constructor( private emailAddressesService: emailAddressesService) {}
 
   @Get()
-  getAll(): Array<receiver> {
-    return this.receivers
+  getAll(): Array<Receiver> {
+    return this.emailAddressesService.getAll()
   }
 
   @Get(':id')
-  getOne(@Param() params: receiver): string {
-    return this.receivers[params.id].email
+  getOne(@Param() params: Receiver): string {
+    return this.emailAddressesService.getOne(params)
   }
 
   @Post()
-  createOne(@Body() params: receiver): Array<receiver> {
-    this.receivers.push(params)
-    return this.receivers
+  createOne(@Body() params: Receiver): Array<Receiver> {
+    this.emailAddressesService.receivers.push(params)
+    return this.emailAddressesService.receivers
   }
 
   @Put()
-  updateOne(@Body() params: receiver): receiver{
+  updateOne(@Body() params: Receiver): Receiver{
     return params
   }
 
   @Delete()
-  deleteOne(): Array<receiver> {
-    this.receivers.pop()
-    return this.receivers
+  deleteOne(): Array<Receiver> {
+    this.emailAddressesService.receivers.pop()
+    return this.emailAddressesService.receivers
   }
 }
