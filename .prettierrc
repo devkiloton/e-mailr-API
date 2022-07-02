@@ -1,4 +1,26 @@
 {
+  "semi": false,
   "singleQuote": true,
-  "trailingComma": "all"
+  "quoteProps": "consistent",
+  "trailingComma": "none",
+  "bracketSpacing": true,
+  "arrowParens": "avoid",
+  "useTabs": false,
+  "Semicolons": true,
+  "tabWidth": 2,
+  "printWidth": 90,
+  "htmlWhitespaceSensitivity": "strict",
+  "tsdoc": true,
+  "overrides": [
+    {
+      "files": "**/*.md",
+      "options": {
+        "semi": true,
+        "trailingComma": "none",
+        "arrowParens": "always",
+        "printWidth": 90,
+        "quoteProps": "as-needed"
+      }
+    }
+  ]
 }
