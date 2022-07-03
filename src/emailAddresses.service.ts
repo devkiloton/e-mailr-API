@@ -1,32 +1,38 @@
 import { Injectable } from "@nestjs/common"
+import { InjectModel } from "@nestjs/sequelize"
 import { Receiver } from "./receiver.model"
 
 @Injectable()
 export class emailAddressesService{
-    receivers: Array<Receiver> = [
-        // new Receiver("yarego", "jdskjdd"),
-        // new Receiver("yaregosas", "jdsasakjdd")  
-      ]
+  constructor(
+    @InjectModel(Receiver) private receiverModel: typeof Receiver
+  ) {}
 
-  getAll(): Array<Receiver> {
-    return this.receivers
+  async getAll(): Promise<Array<Receiver>> {
+    return this.receiverModel.findAll()
   }
 
-  getOne(params: Receiver): string {
-    return this.receivers[params.id].email
+  async getOne(id: number): Promise<Receiver | null> {
+    return this.receiverModel.findByPk(id)
   }
 
-  createOne(params: Receiver): Array<Receiver> {
-    this.receivers.push(params)
-    return this.receivers
+  async createOne(receiver: Receiver): Promise<Receiver> {
+    return this.receiverModel.create(receiver)
   }
 
-  updateOne(params: Receiver): Receiver{
-    return params
+  async updateOne(receiver: Receiver): Promise<[number]>{
+    console.log("RECEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEIVER", receiver)
+    return this.receiverModel.update(receiver, {
+      where: { 
+        id: receiver.id 
+      }
+    })
   }
 
-  deleteOne(): Array<Receiver> {
-    this.receivers.pop()
-    return this.receivers
+  async deleteOne(id: number): Promise<void> {
+    const receiver = await this.getOne(id)
+    if (receiver) {
+      receiver.destroy()
+    }
   }
 }
