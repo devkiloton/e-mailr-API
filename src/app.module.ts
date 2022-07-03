@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common'
+import { ConfigModule } from '@nestjs/config'
 import { SequelizeModule } from '@nestjs/sequelize'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
@@ -7,13 +8,14 @@ import { emailAddressesService } from './emailAddresses.service'
 import { Receiver } from './receiver.model'
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     SequelizeModule.forRoot({
       dialect: 'mysql',
-      host: 'us-cdbr-east-06.cleardb.net',
+      host: process.env['HOST_DB'],
       port: 3306,
-      username: 'b22a48408e1df3',
-      password: '119ee50b',
-      database: 'heroku_4c421b6f600603c',
+      username: process.env['USERNAME_DB'],
+      password: process.env['PASSWORD_DB'],
+      database: process.env['DB'],
       autoLoadModels: true,
       synchronize: true,
     }),

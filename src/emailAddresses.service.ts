@@ -21,7 +21,6 @@ export class emailAddressesService{
   }
 
   async updateOne(receiver: Receiver): Promise<[number]>{
-    console.log("RECEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEIVER", receiver)
     return this.receiverModel.update(receiver, {
       where: { 
         id: receiver.id 
