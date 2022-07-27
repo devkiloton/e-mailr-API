@@ -15,7 +15,7 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handleba
                 },
             },
             defaults: {
-                from: `${process.env['MAIL_FROM']}`,
+                from: `Xarlat <${process.env['MAIL_FROM']}>`,
             },
             template: {
               dir: join(__dirname, 'templates'),
