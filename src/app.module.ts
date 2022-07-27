@@ -6,6 +6,9 @@ import { AppService } from './app.service'
 import { EmailAddressesController } from './emailAddresses.controller'
 import { emailAddressesService } from './emailAddresses.service'
 import { Receiver } from './receiver.model'
+import { MailModule } from './mail/mail.module';
+import { MailController } from './mail/mail.controller'
+import { MailService } from './mail/mail.service'
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -20,8 +23,9 @@ import { Receiver } from './receiver.model'
       synchronize: true,
     }),
     SequelizeModule.forFeature([Receiver]),
+    MailModule,
   ],
-  controllers: [AppController, EmailAddressesController],
-  providers: [AppService, emailAddressesService],
+  controllers: [AppController, EmailAddressesController, MailController],
+  providers: [AppService, emailAddressesService, MailService],
 })
 export class AppModule {}
