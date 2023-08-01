@@ -1,9 +1,9 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common'
-import { emailAddressesService } from './emailAddresses.service'
-import { Receiver } from './receiver.model'
+import { Receiver } from 'src/models/receiver.model'
+import { EmailAddressesService } from 'src/services/email-addresses/email-addresses.service'
 @Controller('emailAddresses')
 export class EmailAddressesController {
-  constructor( private emailAddressesService: emailAddressesService) {}
+  constructor(private emailAddressesService: EmailAddressesService) {}
 
   @Get()
   async getAll(): Promise<Array<Receiver>> {
@@ -11,12 +11,12 @@ export class EmailAddressesController {
   }
 
   @Get(':id')
-  async getOne(@Param('id') params:number): Promise<Receiver | string> {
+  async getOne(@Param('id') params: number): Promise<Receiver | string> {
     const receiver = await this.emailAddressesService.getOne(params)
-    if(receiver){
+    if (receiver) {
       return receiver
     }
-    return "Something went wrong"
+    return 'Something went wrong'
   }
 
   @Post()
@@ -26,7 +26,7 @@ export class EmailAddressesController {
   }
 
   @Put()
-  async updateOne(@Body() body: Receiver): Promise<[number]>{
+  async updateOne(@Body() body: Receiver): Promise<[number]> {
     const receiver = await this.emailAddressesService.updateOne(body)
     return receiver
   }

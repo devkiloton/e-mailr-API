@@ -1,12 +1,10 @@
-import { Injectable } from "@nestjs/common"
-import { InjectModel } from "@nestjs/sequelize"
-import { Receiver } from "./receiver.model"
+import { Injectable } from '@nestjs/common'
+import { InjectModel } from '@nestjs/sequelize'
+import { Receiver } from 'src/models/receiver.model'
 
 @Injectable()
-export class emailAddressesService{
-  constructor(
-    @InjectModel(Receiver) private receiverModel: typeof Receiver
-  ) {}
+export class EmailAddressesService {
+  constructor(@InjectModel(Receiver) private receiverModel: typeof Receiver) {}
 
   async getAll(): Promise<Array<Receiver>> {
     return this.receiverModel.findAll()
@@ -20,10 +18,10 @@ export class emailAddressesService{
     return this.receiverModel.create(receiver)
   }
 
-  async updateOne(receiver: Receiver): Promise<[number]>{
+  async updateOne(receiver: Receiver): Promise<[number]> {
     return this.receiverModel.update(receiver, {
-      where: { 
-        id: receiver.id 
+      where: {
+        id: receiver.id
       }
     })
   }

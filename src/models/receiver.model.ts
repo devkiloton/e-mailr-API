@@ -1,4 +1,4 @@
-import { Column, DataType, Model, Table } from "sequelize-typescript"
+import { Column, DataType, Model, Table } from 'sequelize-typescript'
 
 @Table
 export class Receiver extends Model<Receiver> {
@@ -11,12 +11,12 @@ export class Receiver extends Model<Receiver> {
   override id: string
   @Column({
     type: DataType.STRING(64),
-    allowNull: false,
+    allowNull: false
   })
   email: string
   @Column({
     type: DataType.STRING(64),
-    allowNull: false,
+    allowNull: false
   })
   name: string
 }

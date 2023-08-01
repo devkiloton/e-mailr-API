@@ -1,14 +1,12 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { SequelizeModule } from '@nestjs/sequelize'
-import { AppController } from './app.controller'
-import { AppService } from './app.service'
-import { EmailAddressesController } from './emailAddresses.controller'
-import { emailAddressesService } from './emailAddresses.service'
-import { Receiver } from './receiver.model'
-import { MailModule } from './mail/mail.module';
-import { MailController } from './mail/mail.controller'
-import { MailService } from './mail/mail.service'
+import { MailModule } from './controllers/mail/mail.module'
+import { MailController } from './controllers/mail/mail.controller'
+import { Receiver } from './models/receiver.model'
+import { MailService } from './services/mail/mail.service'
+import { EmailAddressesController } from './controllers/email-address/emailAddresses.controller'
+import { EmailAddressesService } from './services/email-addresses/email-addresses.service'
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -20,12 +18,12 @@ import { MailService } from './mail/mail.service'
       password: process.env['PASSWORD_DB'],
       database: process.env['DB'],
       autoLoadModels: true,
-      synchronize: true,
+      synchronize: true
     }),
     SequelizeModule.forFeature([Receiver]),
-    MailModule,
+    MailModule
   ],
-  controllers: [AppController, EmailAddressesController, MailController],
-  providers: [AppService, emailAddressesService, MailService],
+  controllers: [EmailAddressesController, MailController],
+  providers: [EmailAddressesService, MailService]
 })
 export class AppModule {}
